@@ -11,6 +11,27 @@ from collections import defaultdict
 from prettytable import PrettyTable
 
 
+class Department():
+    '''to hold the department, required and electives'''
+
+    def __init__(self, dept):
+        self.dept = dept
+        self.required = []
+        self.electives = []
+
+    def add_req_course(self, course_no):
+        '''store required info '''
+        self.required.append(course_no)
+
+    def add_ele_course(self, course_no):
+        '''store electives info'''
+        self.electives.append(course_no)
+
+    def add_major_pt(self):
+        '''deliver major info to major table'''
+        return [self.dept, sorted(self.required), sorted(self.electives)]
+
+
 class Student():
     '''to hold all of the details of a student'''
 
@@ -19,14 +40,38 @@ class Student():
         self.name = name
         self.major = major
         self.course = defaultdict(str)
+        self.completed_courses = []
+        self.remaining_requ = set()
+        self.remaining_ele = set()
 
     def add_grade(self, course_no, grade):
         ''' course : grade '''
         self.course[course_no] = grade
 
+    def progress_bar(self, department):
+        '''for each student, add student' course info: completed_courses, remaining_required_course, remaining_electives'''
+        all_courses = department.required + \
+            department.electives + list(self.course.keys())
+
+        for course_no in all_courses:
+            if course_no in self.course and self.course[course_no] in ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C']:
+                self.completed_courses.append(course_no)
+
+            elif course_no in department.required:
+                self.remaining_requ.add(course_no)
+
+        for course_no in department.electives:
+            if course_no in self.completed_courses:
+                self.remaining_ele = None
+                break
+        else:
+            self.remaining_ele = set(department.electives)
+
     def add_student_pt(self):
-        ''' deliver row to repository'''
-        return [self.cwid, self.name, sorted(self.course.keys())]
+        ''' deliver row to repository
+        ["CWID", "Name", "Major","Completed Course", "Remaining Required", "Remaining Electives"]
+        '''
+        return [self.cwid, self.name, self.major, sorted(self.completed_courses), self.remaining_requ, self.remaining_ele]
 
     def __str__(self):
         return f"cwid: {self.cwid}; name: {self.name}; major: {self.major}"
@@ -61,9 +106,12 @@ class Repository():
         self.path = path
         self.students = {}
         self.instructors = {}
+        self.departments = {}
         self.add_students()
         self.add_instructors()
         self.add_courses()
+        self.add_major()
+        self.add_progress_bar()
 
     def file_reader(self, path, fields, sep="\t", header=False):
         '''Reading text files with a fixed number of fields,
@@ -123,11 +171,29 @@ class Repository():
             f'{instructor_cwid}: {list(instructor.course)}' for instructor_cwid, instructor in self.instructors.items())
         return student_courses, courses_students_num
 
+    def add_major(self):
+        ''' to add majors info'''
+        path_grades = os.path.join(self.path, r"majors.txt")
+        for dept, elec_req, course_no in self.file_reader(path_grades, 3, "\t", True):
+            if dept not in self.departments:
+                self.departments[dept] = Department(dept)
+
+            if elec_req == "R":
+                self.departments[dept].add_req_course(course_no)
+            else:
+                self.departments[dept].add_ele_course(course_no)
+
+    def add_progress_bar(self):
+        '''add process bar for each student'''
+        for student in self.students.values():
+            student.progress_bar(self.departments[student.major])
+
     def student_table(self):
         '''Use PrettyTable to generate a summary table of all of the students'''
         out_list = []
         table1 = PrettyTable()
-        table1.field_names = ["CWID", "Name", "Completed Course"]
+        table1.field_names = ["CWID", "Name", "Major",
+                              "Completed Course", "Remaining Required", "Remaining Electives"]
         for i in self.students.values():
             table1.add_row(i.add_student_pt())
             out_list.append(i.add_student_pt())
@@ -149,10 +215,20 @@ class Repository():
         print(f"Instructor Summary\n{table2}")
         return out_list
 
+    def major_table(self):
+
+        table3 = PrettyTable()
+        table3.field_names = ["Dept", "Required", "Electives"]
+        for i in self.departments.values():
+            table3.add_row(i.add_major_pt())
+        print(f"Majors Summary\n{table3}")
+
 
 def main():
     repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+    repo = Repository(r"D:\download")
     #repo = Repository(r"/Users/daiyuping/Documents/GitHub/HW/HW09")
+    repo.major_table()
     repo.student_table()
     repo.instructors_table()
 
