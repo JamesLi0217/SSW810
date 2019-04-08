@@ -7,31 +7,35 @@
 '''
 import os
 import unittest
-from HW09_pli import Student, Instructor, Repository
+from HW10_pli import Department, Student, Instructor, Repository
 
-student1 = Student("10013", "Tom", "Software")
-student1.course = {"SSW540": "A-", "SSW810": "A"}
-student2 = Student("10099", "Jack", "System")
-student2.course = {"SYS111": "", "SSW810": "A"}
 
+a = Department("abc")
+a.add_req_course("SSW540")
+a.add_ele_course("SSW111")
+
+
+class TestDepartment(unittest.TestCase):
+    def test_add_major_pt(self):
+        self.assertEqual(a.add_major_pt(), ['abc', ['SSW540'], ['SSW111']])
+
+
+
+student1= Student("111","Tom","Software")
+student1.add_grade("SSW123", "A")
+student1.add_grade("SSW540", "A")
+student1.add_grade("SSW124", "C")
+student1.add_grade("SSW222", "E")
+a = Department("Software")
+student1.progress_bar(a)
 
 class TestStudent(unittest.TestCase):
-    def test_init(self):
-        """ verify __init__() work properly """
-
-        self.assertEqual(student1.cwid, "10013")
-        self.assertEqual(student1.name, "Tom")
-        self.assertEqual(student1.major, "Software")
-        self.assertEqual(student1.course, {"SSW540": "A-", "SSW810": "A"})
-
-    '''def test_add_grade(self):
-        self.assertEqual()'''
+    
 
     def test_add_student_pt(self):
-        self.assertEqual(student1.add_student_pt(), [
-                         '10013', 'Tom', ['SSW540', 'SSW810']])
-        self.assertEqual(student2.add_student_pt(), [
-                         '10099', 'Jack', ['SSW810', 'SYS111']])
+        """ verify add_student_pt() work properly """
+
+        self.assertEqual(student1.add_student_pt(), ['111', 'Tom', 'Software', ['SSW123', 'SSW124', 'SSW540'], set(), set()])
 
 
 instructor1 = Instructor("10086", "John", "Science")
@@ -105,7 +109,6 @@ class TestRepo(unittest.TestCase):
     def test_instructors_table(self):
         """ verify instructors_table() work properly """
         repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
-
 
         '''self.assertEqual(repo.add_courses(), (["10103: ['SSW 567', 'SSW 564', 'SSW 687', 'CS 501']", '10115: []'], [
                          "98765: ['SSW 567']", "98764: ['SSW 564', 'SSW 687', 'CS 501']"]))'''
