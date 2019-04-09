@@ -232,15 +232,6 @@ def main():
     repo.student_table()
     repo.instructors_table()
 
-    student1 = Student("111", "Tom", "Software")
-    student1.add_grade("SSW123", "A")
-    student1.add_grade("SSW540", "A")
-    student1.add_grade("SSW124", "C")
-    student1.add_grade("SSW222", "E")
-    a = Department("Software")
-    student1.progress_bar(a)
-    print(student1.add_student_pt())
-
 
 if __name__ == "__main__":
     main()
