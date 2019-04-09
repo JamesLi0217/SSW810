@@ -1,0 +1,11 @@
+dist: xenial
+language: python
+python:
+  - 3.7
+sudo: true
+install:
+  - pip install PrettyTable
+script:
+ 
+  - python -m unittest HW10_test_pli.py
+
