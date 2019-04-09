@@ -47,15 +47,16 @@ class TestInstructor(unittest.TestCase):
         self.assertEqual(instructor1.dept, "Science")
         self.assertEqual(instructor1.course, {"SSW540": 3, "SSW810": 7})
 
-    '''def test_count_num(self):
-        self.assertEqual()'''
-
     def test_add_instructor_pt(self):
         self.assertEqual(list(instructor1.add_instructor_pt()), [
                          ('10086', 'John', 'Science', 'SSW540', 3), ('10086', 'John', 'Science', 'SSW810', 7)])
 
 
-repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+docs_dir = os.path.abspath(os.path.join(os.getcwd(), 'documents))
+path=os.path.join(docs_dir, 'HW09')
+path_error=os.path.join(docs_dir, 'HW09error')
+path=os.path.join(docs_dir, 'HW09_notexist')
+                                        
 
 
 class TestRepo(unittest.TestCase):
@@ -63,10 +64,10 @@ class TestRepo(unittest.TestCase):
         """ verify __init__() work properly"""
 
         with self.assertRaises(ValueError):
-            Repository(r"D:\sit study\SSW810Py practice\HW\HW09_error")
+            Repository(path_error)
         with self.assertRaises(FileNotFoundError):
-            Repository(r"D:\sit study\SSW810Py practice\HW\HW09_notexist")
-        self.assertEqual(repo.path, r"D:\sit study\SSW810Py practice\HW\HW09")
+            Repository(path_error)
+        self.assertEqual(repo.path, path)
 
     def test_file_reader(self):
         """ verify file_reader() work properly """
@@ -102,7 +103,7 @@ class TestRepo(unittest.TestCase):
 
     def test_instructors_table(self):
         """ verify instructors_table() work properly """
-        repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        repo = Repository(path)
 
         '''self.assertEqual(repo.add_courses(), (["10103: ['SSW 567', 'SSW 564', 'SSW 687', 'CS 501']", '10115: []'], [
                          "98765: ['SSW 567']", "98764: ['SSW 564', 'SSW 687', 'CS 501']"]))'''
