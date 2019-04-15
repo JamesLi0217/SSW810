@@ -151,8 +151,8 @@ class Repository():
 
 
 def main():
-    repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
-    #repo = Repository(r"/Users/daiyuping/Documents/GitHub/HW/HW09")
+    #repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+    repo = Repository(r"./documents")
     repo.student_table()
     repo.instructors_table()
 
