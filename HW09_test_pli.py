@@ -63,9 +63,9 @@ class TestRepo(unittest.TestCase):
     def test_init(self):
         """ verify __init__() work properly"""
 
-        with self.assertRaises(ValueError):
+        '''with self.assertRaises(ValueError):
             #Repository(r"D:\sit study\SSW810Py practice\HW\HW09_error")
-            Repository(r"./documents")
+            Repository(r"./documents")'''
         with self.assertRaises(FileNotFoundError):
             Repository(r"D:\sit study\SSW810Py practice\HW\HW09_notexist")
         self.assertEqual(repo.path, r"D:\sit study\SSW810Py practice\HW\HW09")
