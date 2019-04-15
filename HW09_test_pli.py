@@ -55,7 +55,8 @@ class TestInstructor(unittest.TestCase):
                          ('10086', 'John', 'Science', 'SSW540', 3), ('10086', 'John', 'Science', 'SSW810', 7)])
 
 
-repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+#repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+repo = Repository(r"./documents")
 
 
 class TestRepo(unittest.TestCase):
@@ -95,7 +96,8 @@ class TestRepo(unittest.TestCase):
 
     def test_student_table(self):
         """ verify student_table() work properly """
-        repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        #repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        repo = Repository(r"./documents")
 
         '''self.assertEqual(repo.add_courses(), (["10103: ['SSW 567', 'SSW 564', 'SSW 687', 'CS 501']", '10115: []'], [
                          "98765: ['SSW 567']", "98764: ['SSW 564', 'SSW 687', 'CS 501']"]))'''
@@ -104,7 +106,8 @@ class TestRepo(unittest.TestCase):
 
     def test_instructors_table(self):
         """ verify instructors_table() work properly """
-        repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        #repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        repo = Repository(r"./documents")
 
 
         '''self.assertEqual(repo.add_courses(), (["10103: ['SSW 567', 'SSW 564', 'SSW 687', 'CS 501']", '10115: []'], [
