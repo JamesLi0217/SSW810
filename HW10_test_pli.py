@@ -57,7 +57,8 @@ path=os.path.join(docs_dir, 'HW09')
 path_error=os.path.join(docs_dir, 'HW09error')
 path=os.path.join(docs_dir, 'HW09_notexist')'''
 
-repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+#repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+repo = Repository(r"./documents/HW09")
 
 
 class TestRepo(unittest.TestCase):
@@ -65,10 +66,12 @@ class TestRepo(unittest.TestCase):
         """ verify __init__() work properly"""
 
         with self.assertRaises(ValueError):
-            Repository(r"D:\sit study\SSW810Py practice\HW\HW09_error")
+            #Repository(r"D:\sit study\SSW810Py practice\HW\HW09_error")
+            Repository(r"./documents/HW09_error")
         with self.assertRaises(FileNotFoundError):
             Repository(r"D:\sit study\SSW810Py practice\HW\HW09_noexist")
-        self.assertEqual(repo.path, r"D:\sit study\SSW810Py practice\HW\HW09")
+        #self.assertEqual(repo.path, r"D:\sit study\SSW810Py practice\HW\HW09")
+        self.assertEqual(repo.path, r"./documents/HW09")
 
     def test_file_reader(self):
         """ verify file_reader() work properly """
@@ -97,14 +100,17 @@ class TestRepo(unittest.TestCase):
 
     def test_student_table(self):
         """ verify student_table() work properly """
-        repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        #repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        repo = Repository(r"./documents/HW09")
 
         self.assertEqual(repo.student_table(), [['10103', 'Baldwin, C', 'SFEN', ['CS 501', 'CS 501', 'SSW 564', 'SSW 564', 'SSW 567', 'SSW 567', 'SSW 687'], {
                          'SSW 555', 'SSW 540'}, None], ['10115', 'Wyatt, X', 'SFEN', [], {'SSW 555', 'SSW 540', 'SSW 564', 'SSW 567'}, {'CS 513', 'CS 501', 'CS 545'}]])
 
     def test_instructors_table(self):
         """ verify instructors_table() work properly """
-        repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        #repo = Repository(r"D:\sit study\SSW810Py practice\HW\HW09")
+        repo = Repository(r"./documents/HW09")
+
 
         '''self.assertEqual(repo.add_courses(), (["10103: ['SSW 567', 'SSW 564', 'SSW 687', 'CS 501']", '10115: []'], [
                          "98765: ['SSW 567']", "98764: ['SSW 564', 'SSW 687', 'CS 501']"]))'''
