@@ -71,7 +71,8 @@ class Repository():
         try:
             fp = open(path, "r")
         except FileNotFoundError:
-            raise FileNotFoundError(f"Can't open {path}")
+            #raise FileNotFoundError(f"Can't open {path}")
+            print(f"Can't open {path}")
         else:
             with fp:
                 index = 0
