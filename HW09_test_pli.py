@@ -68,7 +68,8 @@ class TestRepo(unittest.TestCase):
             Repository(r"./documents")'''
         with self.assertRaises(FileNotFoundError):
             Repository(r"D:\sit study\SSW810Py practice\HW\HW09_notexist")
-        self.assertEqual(repo.path, r"D:\sit study\SSW810Py practice\HW\HW09")
+        #self.assertEqual(repo.path, r"D:\sit study\SSW810Py practice\HW\HW09")
+        self.assertEqual(repo.path, r"./documents")
 
     def test_file_reader(self):
         """ verify file_reader() work properly """
