@@ -7,11 +7,12 @@
 '''
 from flask import Flask, render_template
 import sqlite3
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 @app.route("/")
 def students_summary():
+    ''' show students summary'''
     query = """select s.cwid, s.name, s.major, count(g.Course) as complete from HW11_students s join HW11_grades g on s.cwid = g.Student_CWID group by s.cwid, s.name, s.major"""
     db = sqlite3.connect(r"D:\Github\SSW810\HW11_pli.db")
     results = db.execute(query)
