@@ -1,0 +1,34 @@
+<!--
+ * @Author: Puzhuo Li
+ * @Github: https://github.com/JamesLi0217
+ * @Date: 2019-04-20 22:41:05
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>{{table_title}}</h1>
+    <h2>{{comment}}</h2>
+    <table border="1">
+        <th>CWID</th>
+        <th>Name</th>
+        <th>Major</th>
+        <th>Completed Courses</th>
+        <th>Remaining Courses</th>
+        {% for student in students %}
+            <tr>
+                <td>{{student.cwid}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.major}}</td>
+                <td>{{student.taken}}</td>
+                <td>{{student.remain}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
