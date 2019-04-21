@@ -14,14 +14,12 @@
     <th>Name</th>
     <th>Major</th>
     <th>Completed Courses</th>
-    <th>Remaining Courses</th>
     {% for student in students %}
         <tr>
             <td>{{student.cwid}}</td>
             <td>{{student.name}}</td>
             <td>{{student.major}}</td>
-            <td>{{student.taken}}</td>
-            <td>{{student.remain}}</td>
+            <td>{{student.complete}}</td>
         </tr>
     {% endfor %}
 </table>
